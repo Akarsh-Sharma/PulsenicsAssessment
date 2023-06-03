@@ -339,7 +339,13 @@ namespace PulsenicsAssessment
             foreach (UserEntity user in users)
             {
                 comboBoxUsers.Items.Add(user);
+
+                
             }
+            comboBoxUsers.DataSource = users;
+            comboBoxUsers.DisplayMember = "Name";
+            comboBoxUsers.ValueMember = "UserId";
+            //PopulateUserComboBox();
         }
 
         // Populate the combo box as soon as a new user is created
