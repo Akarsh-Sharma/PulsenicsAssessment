@@ -270,7 +270,7 @@ namespace PulsenicsAssessment
                         // Update the assigned column in the DataGridView
                         DataGridViewCell assignedCell = row.Cells["AssignedColumn"];
                         assignedCell.Value = true;
-                        
+
 
                         // Add the assigned file to the database
                         dbContext.AssignedFiles.Add(assignedFile);
@@ -354,8 +354,25 @@ namespace PulsenicsAssessment
             }
         }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
 
+        }
 
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
     public class YourDbContext : DbContext
     {
