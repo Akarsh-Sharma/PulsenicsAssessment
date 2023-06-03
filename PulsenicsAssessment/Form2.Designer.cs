@@ -41,13 +41,14 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(273, 95);
+            dataGridView1.Location = new Point(273, 84);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -57,7 +58,7 @@
             // txtUserName
             // 
             txtUserName.AccessibleName = "txtUserName";
-            txtUserName.Location = new Point(127, 175);
+            txtUserName.Location = new Point(105, 178);
             txtUserName.Name = "txtUserName";
             txtUserName.Size = new Size(100, 23);
             txtUserName.TabIndex = 1;
@@ -65,17 +66,19 @@
             // 
             // txtUserPhone
             // 
-            txtUserPhone.Location = new Point(127, 254);
+            txtUserPhone.Location = new Point(105, 257);
             txtUserPhone.Name = "txtUserPhone";
             txtUserPhone.Size = new Size(100, 23);
             txtUserPhone.TabIndex = 2;
+            txtUserPhone.TextChanged += txtUserPhone_TextChanged;
             // 
             // txtUserEmail
             // 
-            txtUserEmail.Location = new Point(127, 216);
+            txtUserEmail.Location = new Point(105, 219);
             txtUserEmail.Name = "txtUserEmail";
             txtUserEmail.Size = new Size(100, 23);
             txtUserEmail.TabIndex = 3;
+            txtUserEmail.TextChanged += txtUserEmail_TextChanged;
             // 
             // comboBoxUsers
             // 
@@ -105,7 +108,7 @@
             // 
             // btnSaveUser
             // 
-            btnSaveUser.Location = new Point(127, 292);
+            btnSaveUser.Location = new Point(105, 295);
             btnSaveUser.Name = "btnSaveUser";
             btnSaveUser.Size = new Size(100, 24);
             btnSaveUser.TabIndex = 7;
@@ -126,29 +129,32 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(61, 178);
+            label1.Location = new Point(39, 181);
             label1.Name = "label1";
             label1.Size = new Size(60, 15);
             label1.TabIndex = 9;
             label1.Text = "Username";
+            label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(85, 219);
+            label2.Location = new Point(63, 222);
             label2.Name = "label2";
             label2.Size = new Size(36, 15);
             label2.TabIndex = 10;
             label2.Text = "Email";
+            label2.Click += label2_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(33, 257);
+            label3.Location = new Point(11, 260);
             label3.Name = "label3";
             label3.Size = new Size(88, 15);
             label3.TabIndex = 11;
             label3.Text = "Phone Number";
+            label3.Click += label3_Click;
             // 
             // label4
             // 
@@ -159,11 +165,21 @@
             label4.TabIndex = 12;
             label4.Text = "List of Files";
             // 
+            // label5
+            // 
+            label5.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(93, 137);
+            label5.Name = "label5";
+            label5.Size = new Size(112, 21);
+            label5.TabIndex = 13;
+            label5.Text = "Create a User";
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(899, 553);
+            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -179,6 +195,7 @@
             Controls.Add(dataGridView1);
             Name = "Form2";
             Text = "PulsenicsApp";
+            Load += Form2_Load_1;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -199,5 +216,6 @@
         private Label label2;
         private Label label3;
         private Label label4;
+        private Label label5;
     }
 }
