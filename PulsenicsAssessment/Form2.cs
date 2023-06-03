@@ -353,51 +353,7 @@ namespace PulsenicsAssessment
                 comboBoxUsers.ValueMember = "UserId";
             }
         }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxUsers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form2_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void txtUserPhone_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void txtUserEmail_TextChanged(object sender, EventArgs e)
-        {
-        }
+  
     }
     public class YourDbContext : DbContext
     {

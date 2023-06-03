@@ -78,7 +78,6 @@
             txtUserPhone.Name = "txtUserPhone";
             txtUserPhone.Size = new Size(100, 23);
             txtUserPhone.TabIndex = 2;
-            txtUserPhone.TextChanged += txtUserPhone_TextChanged;
             // 
             // txtUserEmail
             // 
@@ -86,7 +85,6 @@
             txtUserEmail.Name = "txtUserEmail";
             txtUserEmail.Size = new Size(100, 23);
             txtUserEmail.TabIndex = 3;
-            txtUserEmail.TextChanged += txtUserEmail_TextChanged;
             // 
             // comboBoxUsers
             // 
@@ -95,7 +93,6 @@
             comboBoxUsers.Name = "comboBoxUsers";
             comboBoxUsers.Size = new Size(194, 23);
             comboBoxUsers.TabIndex = 4;
-            comboBoxUsers.SelectedIndexChanged += comboBoxUsers_SelectedIndexChanged;
             // 
             // btnSearch
             // 
@@ -146,7 +143,6 @@
             label1.Size = new Size(60, 15);
             label1.TabIndex = 9;
             label1.Text = "Username";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -157,7 +153,6 @@
             label2.Size = new Size(36, 15);
             label2.TabIndex = 10;
             label2.Text = "Email";
-            label2.Click += label2_Click;
             // 
             // label3
             // 
@@ -168,7 +163,6 @@
             label3.Size = new Size(88, 15);
             label3.TabIndex = 11;
             label3.Text = "Phone Number";
-            label3.Click += label3_Click;
             // 
             // label4
             // 
@@ -231,7 +225,6 @@
             Controls.Add(dataGridView1);
             Name = "Form2";
             Text = "PulsenicsApp";
-            Load += Form2_Load_1;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
