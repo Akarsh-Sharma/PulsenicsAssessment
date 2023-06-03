@@ -25,7 +25,7 @@ namespace PulsenicsAssessment
         {
             InitializeComponent();
             InitializeDataGridView();
-            
+
             LoadFilesFromFolder();
             InitializeDbContext();
 
@@ -53,7 +53,7 @@ namespace PulsenicsAssessment
             dataGridView1.Columns.Add("AssignedColumn", "Assigned");
 
             // Set the Assigned column to read-only
-            dataGridView1.Columns["AssignedColumn"].ReadOnly = true;
+            dataGridView1.Columns["AssignedColumn"].ReadOnly = false;
         }
 
 
@@ -81,18 +81,45 @@ namespace PulsenicsAssessment
             {
                 FileInfo fileInfo = new FileInfo(filePath);
 
+                // Get the assigned status for the current file
+                bool isAssigned = GetAssignedStatusFromFile(fileInfo.Name);
+
                 // Add file details to the DataGridView
                 dataGridView1.Rows.Add(
                     fileInfo.Name,
                     fileInfo.Extension,
                     fileInfo.CreationTime,
-                    fileInfo.LastWriteTime
+                    fileInfo.LastWriteTime,
+                    isAssigned  // Assign the assigned status to the AssignedColumn
                 );
 
                 // Save the file details to the database
                 SaveFileToDatabase(fileInfo);
             }
         }
+
+        private bool GetAssignedStatusFromFile(string fileName)
+        {
+            using (var dbContext = new YourDbContext("server=DESKTOP-5JVB8O4\\SQLEXPRESS; database=PulsenicsDB; Integrated Security=True; MultipleActiveResultSets=true; TrustServerCertificate=True;"))
+            {
+                // Check if the file exists in the database
+                var file = dbContext.Files.FirstOrDefault(f => f.FileName == fileName);
+                if (file != null)
+                {
+                    // Check if the file is assigned to any user
+                    var assignedFile = dbContext.AssignedFiles.FirstOrDefault(af => af.FileId == file.FileId);
+                    if (assignedFile != null)
+                    {
+                        // File is assigned to at least one user
+                        return true;
+                    }
+                }
+            }
+
+            // File is not assigned to any user
+            return false;
+        }
+
 
 
         private void SaveFileToDatabase(FileInfo fileInfo)
@@ -197,9 +224,20 @@ namespace PulsenicsAssessment
 
         private void btnAssignFile_Click(object sender, EventArgs e)
         {
-            // Get the selected user from the UI
+            // Get the selected user from the combo box
             UserEntity selectedUser = (UserEntity)comboBoxUsers.SelectedItem;
-
+            // Verify if a user is selected
+            if (selectedUser == null)
+            {
+                MessageBox.Show("Please select a user.");
+                return;
+            }
+            // Verify if any rows are selected
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select one or more files.");
+                return;
+            }
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 // Get the file name from the selected row
@@ -210,16 +248,42 @@ namespace PulsenicsAssessment
 
                 if (file != null)
                 {
-                    // Add the file to the selected user's assigned files
-                    selectedUser.AssignedFiles.Add(file);
+                    // Check if the file is already assigned to the selected user
+                    bool isAlreadyAssigned = dbContext.AssignedFiles
+                        .Any(a => a.UserId == selectedUser.UserId && a.FileId == file.FileId);
+
+                    if (isAlreadyAssigned)
+                    {
+                        MessageBox.Show("The file is already assigned to the selected user.");
+                    }
+                    else
+                    {
+                        // Create a new assigned file entity
+                        AssignedFileEntity assignedFile = new AssignedFileEntity
+                        {
+                            UserId = selectedUser.UserId,
+                            FileId = file.FileId,
+                            User = selectedUser,
+                            File = file
+                        };
+
+                        // Update the assigned column in the DataGridView
+                        DataGridViewCell assignedCell = row.Cells["AssignedColumn"];
+                        assignedCell.Value = true;
+                        
+
+                        // Add the assigned file to the database
+                        dbContext.AssignedFiles.Add(assignedFile);
+                        dbContext.SaveChanges();
+                    }
                 }
             }
-
-            dbContext.SaveChanges();
 
             // Reload the files with updated info in the combo box
             LoadFilesFromFolder();
         }
+
+
 
 
         private void fileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
@@ -264,7 +328,7 @@ namespace PulsenicsAssessment
         {
 
         }
-        
+
         // Load the users in the database into the combo box list
         private void LoadUsers()
         {
@@ -353,22 +417,18 @@ namespace PulsenicsAssessment
     public class AssignedFileEntity
     {
         [Key]
-        public int AssignedFileId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
+        [ForeignKey("User")]
         public int UserId { get; set; }
 
+        [ForeignKey("File")]
         public int FileId { get; set; }
 
-        public DateTime AssignedDate { get; set; }
-
-        [ForeignKey("UserId")]
         public virtual UserEntity User { get; set; }
 
-        [ForeignKey("FileId")]
         public virtual FileEntity File { get; set; }
-
-        public string FileName { get; set; }
-        public DateTime ModifiedDate { get; set; }
     }
 
 }

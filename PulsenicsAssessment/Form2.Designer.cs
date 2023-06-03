@@ -46,6 +46,7 @@
             dataGridView1.Location = new Point(288, 29);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(575, 269);
             dataGridView1.TabIndex = 0;
             // 
