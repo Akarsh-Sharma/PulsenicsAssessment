@@ -66,7 +66,7 @@ namespace PulsenicsAssessment
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            LoadFilesFromFolder();
+            //LoadFilesFromFolder();
         }
 
         private void LoadFilesFromFolder()
